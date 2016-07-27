@@ -17,4 +17,7 @@
   		<version>2.0.1</version>
   	</dependency>
   </dependencies>
+  <properties>
+  	<exec.mainClass>JMSMonitor</exec.mainClass>
+  </properties>
 </project>

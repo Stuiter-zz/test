@@ -10,9 +10,9 @@ class JMSMonitor {
 	public static void main(String[] args) {
 
 //	public class ConnectJMS {
-		 String serverUrl = "tcp://localhost:7222";
-	//	private String userName = "admin";
-		//private String password = "";
+		 String serverUrl = "tcp://vdtwintmp000001:7222";
+		 String userName = "admin";
+		 String password = "";
 		
 
 		// Dynamically Creating Connection Factories (page 371)
@@ -31,7 +31,12 @@ class JMSMonitor {
 */
 
 		// A connection with the EMS server is defined by the Connection object obtained from a Connection Factory (page 374)
-//		Connection connection = factory.createConnection(userName,password);
+		try {
+			Connection connection = factory.createConnection(userName,password);
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// Starting, Stopping and Closing a Connection
 
@@ -42,11 +47,10 @@ class JMSMonitor {
 		single transaction. A non-transactional Session can define the acknowledge mode
 		of message objects received by the session. */
 		// To create a Session that uses the default AUTO_ACKNOWLEDGE session mode
-//		Session session = connection.createSession();
+		//Session session = connection.createSession();
 		
 		// The EMS extended session modes, such as NO_ACKNOWLEDGE, require that you include the com.tibco.tibjms.Tibjms constant when you specify the EMS session mode.
-			//Session session = connection.createSession(
-			//	com.tibco.tibjms.Tibjms.NO_ACKNOWLEDGE);
+			//Session session = connection.createSession(com.tibco.tibjms.Tibjms.NO_ACKNOWLEDGE);
 
 		System.out.println("Hello World!"); // Display the string.
     }
