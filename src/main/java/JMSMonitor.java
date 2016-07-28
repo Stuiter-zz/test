@@ -20,7 +20,7 @@ class JMSMonitor {
 				System.out.println(queueInfo[i]);				
 			}
 		} catch (TibjmsAdminException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block test
 			e.printStackTrace();
 		}
 		
