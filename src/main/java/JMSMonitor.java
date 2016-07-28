@@ -1,57 +1,29 @@
-import javax.jms.*;
-import javax.naming.*;
-
-	/** TODO
-		- lookup the connection factory via a JNDI lookup
-	*/
+import com.tibco.tibjms.admin.QueueInfo;
+import com.tibco.tibjms.admin.TibjmsAdmin;
+import com.tibco.tibjms.admin.TibjmsAdminException;
 
 class JMSMonitor {
 
 	public static void main(String[] args) {
 
-//	public class ConnectJMS {
 		 String serverUrl = "tcp://vdtwintmp000001:7222";
 		 String userName = "admin";
 		 String password = "";
 		
-
-		// Dynamically Creating Connection Factories (page 371)
-		/* Normally client applications use JNDI to look up a Connection Factory object.
-		However, some situations require clients to connect to the server directly. To
-		connect to the EMS server directly, the application must dynamically create a
-		connection factory. */
-		ConnectionFactory factory = new com.tibco.tibjms.TibjmsConnectionFactory(serverUrl);
-//	}
-
-		// Setting Connection Attempts, Timeout and Delay Parameters (page 372)
-/*
-		factory.setConnAttemptCount(10);
-		factory.setConnAttemptDelay(1000);
-		factory.setConnAttemptTimeout(1000);
-*/
-
-		// A connection with the EMS server is defined by the Connection object obtained from a Connection Factory (page 374)
+		TibjmsAdmin admin;
 		try {
-			Connection connection = factory.createConnection(userName,password);
-		} catch (JMSException e) {
+			admin = new TibjmsAdmin(serverUrl,userName,password);
+
+			QueueInfo[] queueInfo = admin.getQueues();
+
+			for(int i = 0;i < queueInfo.length; i++){
+				System.out.println(queueInfo[i]);				
+			}
+		} catch (TibjmsAdminException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// Starting, Stopping and Closing a Connection
-
-		// Creating a Session (page 376)
-		/* A Session is a single-threaded context for producing or consuming messages. You
-		create Message Producers or Message Consumers using Session objects. A Session
-		can be transactional to enable a group of messages to be sent and received in a
-		single transaction. A non-transactional Session can define the acknowledge mode
-		of message objects received by the session. */
-		// To create a Session that uses the default AUTO_ACKNOWLEDGE session mode
-		//Session session = connection.createSession();
 		
-		// The EMS extended session modes, such as NO_ACKNOWLEDGE, require that you include the com.tibco.tibjms.Tibjms constant when you specify the EMS session mode.
-			//Session session = connection.createSession(com.tibco.tibjms.Tibjms.NO_ACKNOWLEDGE);
-
-		System.out.println("Hello World!"); // Display the string.
+		System.out.println("Einde bereikt.");
     }
 }
